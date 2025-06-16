@@ -138,7 +138,7 @@ export default function CreateMVPPage() {
     setSubmitting(true); // Start global loading
 
     try {
-      const response = await fetch("http://localhost:5000/api/mvp/generate", {
+      const response = await fetch("https://cogneeva.onrender.com/api/mvp/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
