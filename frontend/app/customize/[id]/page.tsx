@@ -57,7 +57,7 @@ export default function CustomizeMVP() {
 
     try {
       setDownloading(true);
-      const response = await fetch(`http://localhost:5000/api/mvp/download/${mvp?.name}`);
+      const response = await fetch(`https://cogneeva.onrender.com/api/mvp/download/${mvp?.name}`);
       if (!response.ok) {
         throw new Error("Failed to download ZIP");
       }
