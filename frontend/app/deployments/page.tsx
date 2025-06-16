@@ -133,7 +133,7 @@ const MVPCard: React.FC<MVPCardProps> = ({ mvp, setMvps, mvps }) => {
 
   const checkGithubConnection = async () => {
     try {
-      const res = await axios.get<GithubTokenResponse>("http://localhost:5000/api/github/token", { withCredentials: true });
+      const res = await axios.get<GithubTokenResponse>("https://cogneeva.onrender.com/api/github/token", { withCredentials: true });
       setIsGithubConnected(res.data.connected);
     } catch {
       setIsGithubConnected(false);
@@ -142,7 +142,7 @@ const MVPCard: React.FC<MVPCardProps> = ({ mvp, setMvps, mvps }) => {
 
   const checkNetlifyConnection = async () => {
     try {
-      const res = await axios.get<NetlifyTokenResponse>("http://localhost:5000/api/netlify/token", { withCredentials: true });
+      const res = await axios.get<NetlifyTokenResponse>("https://cogneeva.onrender.com/api/netlify/token", { withCredentials: true });
       setIsNetlifyConnected(res.data.connected);
     } catch {
       setIsNetlifyConnected(false);
@@ -150,11 +150,11 @@ const MVPCard: React.FC<MVPCardProps> = ({ mvp, setMvps, mvps }) => {
   };
 
   const connectGithub = () => {
-    window.location.href = "http://localhost:5000/api/github/login";
+    window.location.href = "https://cogneeva.onrender.com/api/github/login";
   };
 
 const connectNetlify = () => {
-    window.location.href = "http://localhost:5000/api/netlify/login";
+    window.location.href = "https://cogneeva.onrender.com/api/netlify/login";
 };
 
 
@@ -174,7 +174,7 @@ const connectNetlify = () => {
 
     try {
       toast.loading("Pushing to GitHub...");
-      await axios.post("http://localhost:5000/api/github/push", {
+      await axios.post("https://cogneeva.onrender.com/api/github/push", {
         repoName,
         description,
         files: mvp.files,
@@ -201,7 +201,7 @@ const handlePushNetlify = async () => {
 
   try {
     toast.loading("Deploying to Netlify...");
-    const res = await axios.post<NetlifyDeployResponse>("http://localhost:5000/api/netlify/deploy", {
+    const res = await axios.post<NetlifyDeployResponse>("https://cogneeva.onrender.com/api/netlify/deploy", {
       files: mvp.files,
       mvpId: mvp.id,
     }, { withCredentials: true });
