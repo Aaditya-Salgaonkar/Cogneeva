@@ -7,15 +7,31 @@ const { PORT } = require("./config");
 
 const app = express();
 
-app.use(cors({
-  origin: "http://localhost:3000", 
+// UPDATED CORS
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://cogneeva-ldlx.vercel.app"
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true
-}));
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
+
 app.get("/", (req, res) => {
   res.send("Cogneeva backend is running.");
 });
+
 const mvpRoutes = require("./routes/mvp");
 app.use("/api/mvp", mvpRoutes);
 const aiRoutes = require("./routes/aiRoutes");
@@ -26,11 +42,11 @@ const conversationRoutes = require("./routes/conversationRoutes");
 app.use("/api/conversation", conversationRoutes);
 const messageRoutes = require("./routes/messageRoutes");
 app.use("/api/messages", messageRoutes);
-
 const githubRoutes = require("./routes/githubRoutes");
 app.use("/api/github", githubRoutes);
 const netlifyRoutes = require("./routes/netlifyRoutes");
 app.use("/api/netlify", netlifyRoutes);
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
