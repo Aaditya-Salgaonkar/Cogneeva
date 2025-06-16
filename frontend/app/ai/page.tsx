@@ -50,7 +50,7 @@ export default function GaluxiumChat() {
 
   const fetchMessages = async (convId: string) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/messages/${convId}`);
+      const res = await fetch(`https://cogneeva.onrender.com/api/messages/${convId}`);
       const data = await res.json();
       if (data.success) {
         const formattedMessages = data.messages.map((msg: BackendMessage) => ({
@@ -68,7 +68,7 @@ export default function GaluxiumChat() {
   const fetchConversations = useCallback(async () => {
     if (!userId) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/conversation/list/${userId}`);
+      const res = await fetch(`https://cogneeva.onrender.com/api/conversation/list/${userId}`);
       const data = await res.json();
       if (data.success) setConversations(data.conversations);
     } catch (err) {
@@ -85,7 +85,7 @@ export default function GaluxiumChat() {
 
   const startNewConversation = useCallback(async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/conversation/start", {
+      const res = await fetch("https://cogneeva.onrender.com/api/conversation/start", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId }),
@@ -118,7 +118,7 @@ export default function GaluxiumChat() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/chat", {
+      const res = await fetch("https://cogneeva.onrender.com/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -136,7 +136,7 @@ export default function GaluxiumChat() {
 
       // 🟢 Only update conversation title if it's first user message
       if (messages.length === 0) {
-        await fetch(`http://localhost:5000/api/conversation/update-title/${conversationId}`, {
+        await fetch(`https://cogneeva.onrender.com/api/conversation/update-title/${conversationId}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ prompt: userMessage.message }),
